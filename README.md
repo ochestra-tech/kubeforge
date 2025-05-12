@@ -1,4 +1,4 @@
-# kubeforge
+# KubeForge
 
 KubeForge is a Go-based tool for automating Kubernetes cluster installation and setup on Linux systems. It provides a simple, interactive way to bootstrap both control plane and worker nodes.
 
@@ -24,7 +24,7 @@ sudo make install
 
 # k8s-cluster-setup
 
-This is the batch script version of the go cluster created tool - KubeForge
+k8s-cluster-setup is the batch script version of this go cluster created tool
 
 Make it executable setup-kubernetes.sh: chmod +x setup-kubernetes.sh
 Run it as root: sudo ./setup-kubernetes.sh
