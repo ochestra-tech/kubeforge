@@ -22,9 +22,9 @@ cd KubeForge
 make build
 sudo make install
 
-# k8s-cluster-setup
+## K8s Cluster Setup with Batch Script
 
-k8s-cluster-setup is the batch script version of this go cluster created tool
+scripts/k8s-cluster-setup is the batch script version of this go cluster created tool
 
 Make it executable setup-kubernetes.sh: chmod +x setup-kubernetes.sh
 Run it as root: sudo ./setup-kubernetes.sh
