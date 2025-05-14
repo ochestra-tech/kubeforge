@@ -114,7 +114,7 @@ func main() {
 				log.Info("Skipping network plugin installation")
 				// Skip network installation
 			} else {
-				log.Info("Reinstalling network plugin...")
+				log.Info("Installing network plugin...")
 
 				// Ask user which network plugin to use
 				pluginOptions := []string{"Calico", "Flannel", "Weave", "Cilium"}

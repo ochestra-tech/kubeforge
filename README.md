@@ -11,6 +11,40 @@ KubeForge is a Go-based tool for automating Kubernetes cluster installation and 
 - Calico network plugin installation
 - Optional Kubernetes Dashboard installation
 - Worker node join command generation
+- High-availability cluster setup
+- Node joining (both worker and control plane nodes)
+- Node labeling and tainting
+- Cluster upgrade capabilities
+- Cluster status checking
+- robust configuration options
+
+## Control Plane Setup
+
+When setting up a control plane node, KubeForge will:
+
+- Install and configure containerd
+- Install Kubernetes components (kubeadm, kubelet, kubectl)
+- Initialize the Kubernetes control plane
+- Install the Calico network plugin
+- Generate a join command for worker nodes
+- Optionally install the Kubernetes Dashboard
+
+## Worker Node Setup
+
+When setting up a worker node, KubeForge will:
+
+- Install and configure containerd
+- Install Kubernetes components
+- Prompt for the join command from the control plane
+- Join the node to the cluster
+
+## High Availability Setup
+
+KubeForge supports high availability setups with multiple control plane nodes. When configuring a high availability cluster:
+
+- Set up a load balancer in front of the API servers
+- Configure the first control plane node with the load balancer endpoint
+- Join additional control plane nodes using certificate key
 
 ## Installation
 
@@ -21,22 +55,11 @@ git clone https://github.com/ochestra-tech/kubeforge.git
 cd KubeForge
 make build
 sudo make install
-
-## K8s Cluster Setup with Batch Script
-
-scripts/k8s-cluster-setup is the batch script version of this go cluster created tool
-
-Make it executable setup-kubernetes.sh: chmod +x setup-kubernetes.sh
-Run it as root: sudo ./setup-kubernetes.sh
-First run the script on the machine you want to be the master node
-When prompted, indicate it's a master node
-Save the join command that is generated
-Run the script on each worker node
-When prompted, indicate it's not a master node
-Run the join command you saved earlier on each worker node
 ```
 
-## Building and Installing KubeForge
+## Building and Installing KubeForge with Docker
+
+This is more practical approach that uses Docker only as a build environment, producing a standalone binary that can be run directly on the host system. This addresses security concerns while leveraging containerization for consistent builds.
 
 ### Using Docker as a Build Environment
 
@@ -75,3 +98,21 @@ c. **Run KubeForge**
 ```bash
 kubeforge
 ```
+
+# K8s Cluster Setup with Batch Script
+
+scripts/k8s-cluster-setup is the batch script version of this go cluster created tool
+
+## Usage Instructions
+
+1. Save the script to a file (e.g., setup-kubernetes.sh)
+2. Make it executable: chmod +x setup-kubernetes.sh
+3. Run it as root: sudo ./setup-kubernetes.sh
+4. First run the script on the machine you want to be the master node
+5. When prompted, indicate it's a master node
+6. Save the join command that is generated
+7. Run the script on each worker node
+8. When prompted, indicate it's not a master node
+9. Run the join command you saved earlier on each worker node
+
+After completing these steps, you'll have a functional Kubernetes cluster with networking configured and ready to deploy applications.
