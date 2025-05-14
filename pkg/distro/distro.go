@@ -1,6 +1,7 @@
 package distro
 
 import (
+	"log"
 	"os"
 	"regexp"
 )
@@ -35,9 +36,11 @@ func Detect() (*Distribution, error) {
 	nameRe := regexp.MustCompile(`ID="?([^"\n]+)"?`)
 	versionRe := regexp.MustCompile(`VERSION_ID="?([^"\n]+)"?`)
 
+	log.Printf("Detected OS release file: %s", nameRe)
+
 	if nameMatch := nameRe.FindStringSubmatch(osRelease); len(nameMatch) > 1 {
 		dist.Name = nameMatch[1]
-
+		log.Printf("Detected OS release file: %s", string(osRelease))
 		// Set distribution type and package command
 		switch dist.Name {
 		case "ubuntu", "debian":

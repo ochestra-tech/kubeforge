@@ -35,3 +35,43 @@ Run the script on each worker node
 When prompted, indicate it's not a master node
 Run the join command you saved earlier on each worker node
 ```
+
+## Building and Installing KubeForge
+
+### Using Docker as a Build Environment
+
+KubeForge provides a containerized build environment that produces standalone binaries for direct use on the host system. This approach avoids running privileged containers while still leveraging Docker for consistent builds.
+
+### Key Benefits of This Approach
+
+- Secure: No need for privileged containers at runtime
+
+- Portable: Builds binaries for multiple architectures
+
+- Consistent: Same build environment regardless of host OS
+
+- Simple: Easy installation process using generated script
+
+- Flexible: Can run directly on the host with full access to system resources
+
+- CI/CD friendly: Easy to integrate into build pipelines
+
+This approach gives you the best of both worlds: the consistency of containerized builds with the security and performance of running natively on the host.
+
+a. **Build the binaries**:
+
+```bash
+./scripts/docker-build.sh
+```
+
+b. **Install KubeForge on the host system**:
+
+```bash
+./scripts/install-host.sh
+```
+
+c. **Run KubeForge**
+
+```bash
+kubeforge
+```

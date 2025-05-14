@@ -45,6 +45,6 @@ RUN echo '#!/bin/bash\n\
     ' > /dist/install.sh && chmod +x /dist/install.sh
 
 # Minimal runtime container for distribution (if needed)
-FROM alpine:3.18 AS runtime
+FROM alpine:3.21 AS runtime
 COPY --from=builder /dist /kubeforge
 ENTRYPOINT ["/bin/sh"]
