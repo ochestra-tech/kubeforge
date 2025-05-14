@@ -101,7 +101,7 @@ kubeforge
 
 # K8s Cluster Setup with Batch Script
 
-scripts/k8s-cluster-setup is the batch script version of this go cluster created tool
+scripts/k8s-cluster-setup is the batch script version of this go cluster creation tool
 
 ## Usage Instructions
 
