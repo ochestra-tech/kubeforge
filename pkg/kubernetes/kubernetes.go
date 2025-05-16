@@ -184,21 +184,21 @@ func InitControlPlane(config *Config, log *logger.Logger) error {
 
 	// Build kubeadm configuration
 	kubeadmConfig := fmt.Sprintf(`apiVersion: kubeadm.k8s.io/v1beta3
-kind: InitConfiguration
-nodeRegistration:
-  name: %s
-  taints: []
-localAPIEndpoint:
-  advertiseAddress: %s
-  bindPort: 6443
----
-apiVersion: kubeadm.k8s.io/v1beta3
-kind: ClusterConfiguration
-clusterName: %s
-networking:
-  podSubnet: %s
-  serviceSubnet: %s
-`, config.NodeName, config.APIServerAddr, config.ClusterName, config.PodCIDR, config.ServiceCIDR)
+	kind: InitConfiguration
+	nodeRegistration:
+	name: %s
+	taints: []
+	localAPIEndpoint:
+	advertiseAddress: %s
+	bindPort: 6443
+	---
+	apiVersion: kubeadm.k8s.io/v1beta3
+	kind: ClusterConfiguration
+	clusterName: %s
+	networking:
+	podSubnet: %s
+	serviceSubnet: %s
+	`, config.NodeName, config.APIServerAddr, config.ClusterName, config.PodCIDR, config.ServiceCIDR)
 
 	// Add HA configuration if enabled
 	if config.HighAvailability && config.ControlPlaneEndpoint != "" {
@@ -326,18 +326,18 @@ func InstallCalico(config *Config, log *logger.Logger) error {
 
 	// Create custom resources file for Calico
 	calicoResources := fmt.Sprintf(`apiVersion: operator.tigera.io/v1
-kind: Installation
-metadata:
-  name: default
-spec:
-  calicoNetwork:
-    ipPools:
-    - blockSize: 26
-      cidr: %s
-      encapsulation: VXLANCrossSubnet
-      natOutgoing: Enabled
-      nodeSelector: all()
-`, config.PodCIDR)
+	kind: Installation
+	metadata:
+	name: default
+	spec:
+	calicoNetwork:
+		ipPools:
+		- blockSize: 26
+		cidr: %s
+		encapsulation: VXLANCrossSubnet
+		natOutgoing: Enabled
+		nodeSelector: all()
+	`, config.PodCIDR)
 
 	calicoResourcesPath := "/tmp/calico-custom-resources.yaml"
 	err = os.WriteFile(calicoResourcesPath, []byte(calicoResources), 0644)
@@ -409,24 +409,24 @@ func InstallDashboard(log *logger.Logger) error {
 
 	// Create admin user for Dashboard
 	adminUserYaml := `apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: admin-user
-  namespace: kubernetes-dashboard
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: admin-user
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: admin-user
-  namespace: kubernetes-dashboard
-`
+	kind: ServiceAccount
+	metadata:
+	name: admin-user
+	namespace: kubernetes-dashboard
+	---
+	apiVersion: rbac.authorization.k8s.io/v1
+	kind: ClusterRoleBinding
+	metadata:
+	name: admin-user
+	roleRef:
+	apiGroup: rbac.authorization.k8s.io
+	kind: ClusterRole
+	name: cluster-admin
+	subjects:
+	- kind: ServiceAccount
+	name: admin-user
+	namespace: kubernetes-dashboard
+	`
 
 	adminUserPath := "/tmp/dashboard-admin-user.yaml"
 	err = os.WriteFile(adminUserPath, []byte(adminUserYaml), 0644)

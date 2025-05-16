@@ -79,8 +79,6 @@ KubeForge provides a containerized build environment that produces standalone bi
 
 - CI/CD friendly: Easy to integrate into build pipelines
 
-This approach gives you the best of both worlds: the consistency of containerized builds with the security and performance of running natively on the host.
-
 a. **Build the binaries**:
 
 ```bash
