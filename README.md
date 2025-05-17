@@ -97,9 +97,37 @@ c. **Run KubeForge**
 kubeforge
 ```
 
+## Manual Installation
+If you prefer to build and install KubeForge manually:
+
+1. Build the binary:
+```bash
+go build -o kubeforge cmd/kubeforge/main.go
+```
+2. Install it
+```bash
+sudo cp kubeforge /usr/local/bin/
+sudo mkdir -p /usr/local/lib/kubeforge/assets
+sudo cp -r assets/* /usr/local/lib/kubeforge/assets/
+sudo chmod +x /usr/local/bin/kubeforge
+```
+
+## Usage Demo
+```bash
+# Build the binaries
+./build.sh
+
+# Install KubeForge on the host system
+./install-host.sh
+
+# Run KubeForge
+kubeforge
+```
+
+
 # K8s Cluster Setup with Batch Script
 
-scripts/k8s-cluster-setup is the batch script version of this go cluster created tool
+scripts/k8s-cluster-setup is the batch script version of this go cluster creation tool
 
 ## Usage Instructions
 
